@@ -1,10 +1,7 @@
-
-from dotenv import load_dotenv
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 import os
 
-load_dotenv('.env')
 db = SQLAlchemy()
 
 def create_app():
