@@ -6,20 +6,48 @@
 #   Jonathon Roscoe / @jrosoce5
 #
 
-from abc import ABC, abstractmethod
+from pymitter import EventEmitter
 
-class BaseModule(ABC):
+class BaseModule():
     """
-    Interface for all Catbox modules.
+    Base class for all Catbox modules.
     """
-    @abstractmethod
-    def __init__(self, emitter, state_manager) -> None:
+
+    # Defines a dict of all events that modules may emit and listen for. Keys  
+    # are the simple names of the events, values are the string that should
+    # be emitted and listened for. If an event is only emitted by a specific 
+    # module, use module_name.event_name as the key. Otherwise, use 
+    # system.event_name. Comment the parameters that accompany each event as
+    # well as a description of when it is emitted.
+    codes = {
+        'print': 'system.print', # (message) emitted to print a notification 
+        'exception': 'system.exception', # (exception)
+        'ready': 'system.ready', # (None) emitted after all modules are launched
+        'stop': 'system.stop',
+        'play_ambient': 'ambient_noises.play_ambient'
+    }
+
+    def __init__(self) -> None:
+        """
+        Initialize internal instance variables
+        """
         pass
     
-    @abstractmethod
-    def load(self) -> bool:
-        pass
+    def register(self, emitter:EventEmitter) -> None:
+        """
+        Stores emitter for use in launch.
+        Register event handlers with emitter.
 
-    @abstractmethod
-    def unload(self) -> bool:
-        pass
+        This method is called from the main thread once for each module in the 
+        order the modules are defined in modules_list.
+        """
+        self.emitter = emitter
+        emitter.emit(self.codes['print'], f'registering {self.__class__.__name__}')
+
+    def launch(self) -> None:
+        """
+        Called after all modules have been registered. This should be where the
+        modules non event driven functionality is executed.
+        Each module is launched in its own thread. 
+        """
+        self.emitter.emit(self.codes['print'], f'launching {self.__class__.__name__}')

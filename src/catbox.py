@@ -7,26 +7,34 @@
 # Event Emitters ...
 #
 # Modules (located) ...
-# The GUI module is loaded before all other modules are loaded.
 #
 # Authors:
 #   Jonathon Roscoe / @jroscoe5
 #
 
-import json
+import time
+from threading import Thread
 
-r"""
-  ,-.       _,---._ __  / \
- /  )    .-'       `./ /   \
-(  (   ,'            `/    /|
- \  `-"             \'\   / |
-  `.              ,  \ \ /  |
-   /`.          ,'-`----Y   |
-  (            ;        |   '
-  |  ,-.    ,-'         |  /
-  |  | (   |   CatBox   | /
-  )  |  \  `.___________|/
-  `--'   `--'
+from pymitter import EventEmitter
 
-  art by hjm
-"""
+from gui import launch_gui
+from modules import modules_list
+from modules.base_module import BaseModule
+
+emitter = EventEmitter()
+
+def load_n_launch_modules(emitter):
+    time.sleep(3)
+    print_code = BaseModule.codes['print']
+    emitter.emit(print_code, 'registering meowdules . . .')
+    for module in modules_list:
+        module.register(emitter)
+
+    emitter.emit(print_code, 'launching meowdules . . .')
+    for module in modules_list:
+        Thread(target=module.launch).start()
+    
+    emitter.emit(print_code, 'loaded and launched =^o^=')
+Thread(target=load_n_launch_modules, args=(emitter,)).start()
+
+launch_gui(emitter)
