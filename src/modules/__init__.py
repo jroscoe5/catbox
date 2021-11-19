@@ -5,11 +5,9 @@
 #
 
 from modules.ambient_noises.module import AmbientNoisesModule
-from modules.gui.module import GUIModule
 from modules.tv.module import TVModule
 
 modules_list = [
     AmbientNoisesModule(),
-    GUIModule(),
     TVModule(),
 ]

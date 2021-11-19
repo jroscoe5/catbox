@@ -1,3 +1,10 @@
+# gui.py
+#
+# Implements a simple GUI for the main thread to run after loading and launching
+# all modules. Can listen and emit events but all gui api calls must be made
+# from main thread.
+#
+
 import PySimpleGUI as sg
 from queue import Queue
 from modules.base_module import BaseModule
