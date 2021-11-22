@@ -5,8 +5,10 @@
 # from main thread.
 #
 
-import PySimpleGUI as sg
 from queue import Queue
+
+import PySimpleGUI as sg
+
 from modules.base_module import BaseModule
 
 # art by hjm
