@@ -31,8 +31,9 @@ def create_window():
     sg.theme('DarkAmber')
     background_color = sg.theme_background_color()
     layout = [  
-        [sg.Multiline(LOGO, 
+        [sg.Multiline(LOGO,
             size=(30,15),
+            key='--logo--',
             background_color=background_color,
             border_width=0,
             pad=((0,0), (300,0)),
@@ -64,7 +65,13 @@ def launch_gui(emitter):
 
     @emitter.on(BaseModule.codes['print'])
     def add_to_queue(message):
-        event_queue.put(message)
+        event_queue.put(['print', message])
+
+    @emitter.on(BaseModule.codes['ready'])
+    def on_system_ready():
+        event_queue.put(['ready', None])
+        event_queue.put(['print', 'system is ready!'])
+        
 
     window = create_window()
     while True:
@@ -74,4 +81,8 @@ def launch_gui(emitter):
             
         while not event_queue.empty():
             item = event_queue.get()
-            window['--output--'].print(item)
+            if item[0] == 'print':
+                window['--output--'].print(item[1])
+            if item[0] == 'ready':
+                window['--logo--'].update(text_color='green')
+                window['--output--'].update(text_color='green')

@@ -12,7 +12,7 @@
 #   Jonathon Roscoe / @jroscoe5
 #
 
-import time
+from time import sleep
 from threading import Thread
 
 from pymitter import EventEmitter
@@ -24,8 +24,9 @@ from modules.base_module import BaseModule
 emitter = EventEmitter()
 
 def load_n_launch_modules(emitter):
-    time.sleep(3)
+    sleep(3)
     print_code = BaseModule.codes['print']
+    ready_code = BaseModule.codes['ready']
     emitter.emit(print_code, 'registering meowdules ฅ(ﾐ⌣ᆽ⌣`ﾐ)∫')
     for module in modules_list:
         try:
@@ -36,6 +37,9 @@ def load_n_launch_modules(emitter):
     emitter.emit(print_code, 'launching meowdules (ﾐ^ᆽ^ﾐ)')
     for module in modules_list:
         Thread(target=module.launch, daemon=True).start()
+
+    sleep(1)
+    emitter.emit(ready_code)
 
 if __name__ == '__main__':
     Thread(target=load_n_launch_modules, args=(emitter,)).start()
