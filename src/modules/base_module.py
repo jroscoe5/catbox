@@ -1,6 +1,6 @@
 # base_module.py
 #
-# Interface for all Catbox modules.
+# Base class for all Catbox modules.
 #
 # authors:
 #   Jonathon Roscoe / @jrosoce5
@@ -20,11 +20,13 @@ class BaseModule():
     # system.event_name. Comment the parameters that accompany each event as
     # well as a description of when it is emitted.
     codes = {
-        'print': 'system.print', # (message) emitted to print a notification 
-        'exception': 'system.exception', # (exception)
+        'print': 'system.print', # (message:str) emitted to print a notification 
+        'exception': 'system.exception', # (exception:Exception) emitted when an exception occurs
         'ready': 'system.ready', # (None) emitted after all modules are launched
-        'stop': 'system.stop',
-        'play_ambient': 'ambient_noises.play_ambient'
+        'stop': 'system.stop', # (None) emitted to when/if system shuts down or sleeps
+        'play_ambient': 'ambient_noises.play_ambient', # (filename:str) emitted when ambient_noises plays a sound
+        'start_timed_tv': 'tv.start_timed_tv', # (duration:int) emitted to start playing cat tv for a duration of seconds
+        'stop_tv': 'tv.stop_tv' # (None) emitted to stop playing cat tv
     }
 
     def __init__(self) -> None:

@@ -54,7 +54,7 @@ def create_window():
     ]
 
     dimensions = sg.Window.get_screen_size()
-    window = sg.Window('Catbox', layout, no_titlebar=True, location=(0,0), size=dimensions, element_justification='center')
+    window = sg.Window('Catbox', layout, no_titlebar=True, location=(0,0), size=dimensions, element_justification='center', resizable=False)
     window.finalize()
     window.maximize()
     return window
@@ -75,4 +75,3 @@ def launch_gui(emitter):
         while not event_queue.empty():
             item = event_queue.get()
             window['--output--'].print(item)
-

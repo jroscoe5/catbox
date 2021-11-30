@@ -28,13 +28,15 @@ def load_n_launch_modules(emitter):
     print_code = BaseModule.codes['print']
     emitter.emit(print_code, 'registering meowdules ฅ(ﾐ⌣ᆽ⌣`ﾐ)∫')
     for module in modules_list:
-        module.register(emitter)
+        try:
+            module.register(emitter)
+        except Exception as exc:
+            emitter.emit(print_code, str(exc))
 
-    emitter.emit(print_code, 'launching meowdules')
+    emitter.emit(print_code, 'launching meowdules (ﾐ^ᆽ^ﾐ)')
     for module in modules_list:
-        Thread(target=module.launch).start()
-    
-    emitter.emit(print_code, 'loaded and launched =^~^=')
-Thread(target=load_n_launch_modules, args=(emitter,)).start()
+        Thread(target=module.launch, daemon=True).start()
 
-launch_gui(emitter)
+if __name__ == '__main__':
+    Thread(target=load_n_launch_modules, args=(emitter,)).start()
+    launch_gui(emitter)
