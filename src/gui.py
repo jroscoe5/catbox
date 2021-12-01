@@ -36,7 +36,7 @@ def create_window():
             key='--logo--',
             background_color=background_color,
             border_width=0,
-            pad=((0,0), (300,0)),
+            pad=((0,0), (100,0)),
             disabled=True,
             no_scrollbar=True,
             font=('Courier', 20))
@@ -55,9 +55,9 @@ def create_window():
     ]
 
     dimensions = sg.Window.get_screen_size()
-    window = sg.Window('Catbox', layout, no_titlebar=True, location=(0,0), size=dimensions, element_justification='center', resizable=False)
+    window = sg.Window('Catbox', layout, no_titlebar=False, location=(0,0), size=dimensions, element_justification='center', resizable=True)
     window.finalize()
-    window.maximize()
+#    window.maximize()
     return window
 
 def launch_gui(emitter):

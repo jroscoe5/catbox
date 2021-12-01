@@ -1,5 +1,5 @@
 # tv
-#  
+#
 # Catbox module for playing online videos of birds and squirrels.
 # Support for offline tv maybe in the future.
 #
@@ -11,7 +11,7 @@ from queue import Queue
 from threading import Thread
 from time import sleep
 
-from chromedriver_py import binary_path
+# from chromedriver_py import binary_path
 from modules.base_module import BaseModule
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
@@ -59,22 +59,18 @@ class TVModule(BaseModule):
         options = Options()
         options.add_experimental_option("useAutomationExtension", False)
         options.add_experimental_option("excludeSwitches",["enable-automation"])    
-        driver = webdriver.Chrome(executable_path=binary_path, options=options)
-        driver.implicitly_wait(10)
+        driver = webdriver.Chrome(executable_path='/usr/lib/chromium-browser/chromedriver', options=options)
+        driver.implicitly_wait(30)
 
         driver.get('https://play-onrepeat.com/?search=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3D56359TnQGww')
 
         sleep(5)
 
-        video_element = driver.find_element_by_css_selector('#widget2')
+        video_element = driver.find_element_by_id('widget2')
 
         actionChains = ActionChains(driver)
         actionChains.double_click(video_element).perform()
 
-        sleep(5)
-
-        video_element.click()
-        
         while (duration > 0 and self.tv_running):
             sleep(1)
             duration -= 1

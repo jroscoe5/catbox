@@ -10,6 +10,6 @@ from modules.tv.module import TVModule
 
 modules_list = [
     DebugSignalsModule(),
-    AmbientNoisesModule(),
+    #AmbientNoisesModule(),
     TVModule(),
 ]

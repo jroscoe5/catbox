@@ -32,7 +32,7 @@ class AmbientNoisesModule(BaseModule):
         """
         super().launch()
         while True:
-            sleep(randrange(60, 180))
             sound = choice(noises_list)
-            playsound(sound, block=False)
             self.emitter.emit(self.codes['play_ambient'], filename=sound)
+            playsound(sound)
+            sleep(randrange(60,180))
