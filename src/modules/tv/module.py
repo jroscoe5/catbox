@@ -38,7 +38,6 @@ class TVModule(BaseModule):
         def stop_tv():
             self.event_queue.put(['stop', None])
 
-
     def launch(self) -> None:
         super().launch()
         while True:
