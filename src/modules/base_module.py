@@ -8,6 +8,7 @@
 
 from pymitter import EventEmitter
 
+
 class BaseModule():
     """
     Base class for all Catbox modules.
@@ -25,8 +26,9 @@ class BaseModule():
         'ready': 'system.ready', # (None) emitted after all modules are launched
         'stop': 'system.stop', # (None) emitted to when/if system shuts down or sleeps
         'play_ambient': 'ambient_noises.play_ambient', # (filename:str) emitted when ambient_noises plays a sound
-        'start_timed_tv': 'tv.start_timed_tv', # (duration:int) emitted to start playing cat tv for a duration of seconds
-        'stop_tv': 'tv.stop_tv' # (None) emitted to stop playing cat tv
+        'start_tv': 'tv.start_tv', # (None) emitted when starting playing cat tv
+        'stop_tv': 'tv.stop_tv', # (None) emitted when stopping cat tv
+        'motion_detected': 'motion_sensor.motion_detected', # (None) emitted when motion sensor registers motion
     }
 
     def __init__(self) -> None:

@@ -30,24 +30,22 @@ class TVModule(BaseModule):
     def register(self, emitter) -> None:
         super().register(emitter)
 
-        @emitter.on(self.codes['start_timed_tv'])
-        def start_timed_tv(duration):
-            self.event_queue.put(['start', duration])
-
-        @emitter.on(self.codes['stop_tv'])
-        def stop_tv():
-            self.event_queue.put(['stop', None])
+        @emitter.on(self.codes['motion_detected'])
+        def start_timed_tv():
+            if not self.tv_running:
+                self.event_queue.put('start')
 
     def launch(self) -> None:
         super().launch()
         while True:
             event = self.event_queue.get(block=True)
-            if event[0] == 'start':
+            if event == 'start':
                 self.tv_running = True
-                Thread(target=self.__launch_timed_tv, args=(event[1],), daemon=True).start()
+                Thread(target=self.__launch_timed_tv, args=(30 * 60,), daemon=True).start()
+                self.emitter.emit(self.codes['start_tv'])
                 self.emitter.emit(self.codes['print'], 'time for some tv!')
-            if event[0] == 'stop':
-                self.emitter.emit(self.codes['print'], 'turning off tv!')
+            if event == 'stop':
+                self.emitter.emit(self.codes['stop_tv'])
                 self.tv_running = False
 
     def __launch_timed_tv(self, duration):
@@ -75,3 +73,4 @@ class TVModule(BaseModule):
             duration -= 1
 
         driver.quit()
+        self.event_queue.put('stop')
