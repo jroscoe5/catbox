@@ -10,6 +10,8 @@ modules_list. Tested on Windows and Ubuntu.
 **Setup**
 1. Clone or download the repo and ensure Python 3.6 or greater is installed.
 
+2. **POSIX** Chromedriver installation - ask Jonnie
+
 2. Navigate to the root project directory and create a virtual environment.
 
     `python -m venv .env`
