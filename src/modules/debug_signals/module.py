@@ -28,5 +28,5 @@ class DebugSignalsModule(BaseModule):
         super().launch()
         sleep(10)
         self.emitter.emit(self.codes['start_timed_tv'], 10 * 60)
-        sleep(60)
+        sleep(3 * 60)
         self.emitter.emit(self.codes['stop_tv'])

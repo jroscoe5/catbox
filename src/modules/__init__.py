@@ -10,6 +10,6 @@ from modules.tv.module import TVModule
 
 modules_list = [
     DebugSignalsModule(),
-    #AmbientNoisesModule(),
+    #AmbientNoisesModule(), # playsound dependency issues on raspberry linux
     TVModule(),
 ]
