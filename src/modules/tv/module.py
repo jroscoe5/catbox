@@ -5,7 +5,7 @@
 #
 # Authors:
 #   Jonathon Roscoe / @jroscoe5
-#
+#   Kyle Roscoe     / @kroscoe45
 
 import glob
 import os
