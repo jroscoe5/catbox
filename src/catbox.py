@@ -10,7 +10,7 @@
 #
 # Authors:
 #   Jonathon Roscoe / @jroscoe5
-#
+#   Kyle Roscoe / @kroscoe45
 
 from time import sleep
 from threading import Thread
