@@ -5,8 +5,11 @@
 #
 # Authors:
 #   Jonathon Roscoe / @jroscoe5
+#   Kyle Roscoe     / @kroscoe45
 #
 
+import glob
+import os
 from queue import Queue
 from threading import Thread
 from time import sleep
@@ -53,17 +56,24 @@ class TVModule(BaseModule):
         Navigates to a video, full screens it and then sleeps until stopped or 
         duration times out.
         """
+        extensions_folder = os.path.dirname(os.path.realpath(__file__)) + '/data'
+        extensions_list = glob.glob(f'{extensions_folder}/*.crx')
+        
         options = Options()
         options.add_experimental_option("useAutomationExtension", False)
-        options.add_experimental_option("excludeSwitches",["enable-automation"])    
-        driver = webdriver.Chrome(executable_path='/usr/lib/chromium-browser/chromedriver', options=options)
-        driver.implicitly_wait(30)
+        options.add_experimental_option("excludeSwitches",["enable-automation"])
 
-        driver.get('https://play-onrepeat.com/?search=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3D56359TnQGww')
+        for extension in extensions_list:
+            options.add_extension(extension)
+
+        driver = webdriver.Chrome(executable_path='/usr/lib/chromium-browser/chromedriver', options=options)
+        driver.implicitly_wait(10)
+
+        driver.get('https://www.youtube.com/watch?v=56359TnQGww')
 
         sleep(5)
 
-        video_element = driver.find_element_by_id('widget2')
+        video_element = driver.find_element_by_id('ytd-player')
 
         actionChains = ActionChains(driver)
         actionChains.double_click(video_element).perform()
