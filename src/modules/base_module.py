@@ -29,6 +29,8 @@ class BaseModule():
         'start_tv': 'tv.start_tv', # (None) emitted when starting playing cat tv
         'stop_tv': 'tv.stop_tv', # (None) emitted when stopping cat tv
         'motion_detected': 'motion_sensor.motion_detected', # (None) emitted when motion sensor registers motion
+        'button_on': 'toggle_button.on', # (None) emitted when toggle button goes into on state
+        'button_off': 'toggle_button.off' # (None) emitted when toggle button goes into off state
     }
 
     def __init__(self) -> None:

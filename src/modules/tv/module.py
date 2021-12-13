@@ -33,10 +33,15 @@ class TVModule(BaseModule):
     def register(self, emitter) -> None:
         super().register(emitter)
 
-        @emitter.on(self.codes['motion_detected'])
+        @emitter.on(self.codes['button_on'])
         def start_timed_tv():
             if not self.tv_running:
                 self.event_queue.put('start')
+
+        @emitter.on(self.codes['button_off'])
+        def stop_tv():
+            if self.tv_running:
+                self.event_queue.put('stop')
 
     def launch(self) -> None:
         super().launch()

@@ -31,7 +31,7 @@ modules_list. Tested on Windows and Ubuntu.
     `pip install --upgrade pip`
 
 5. Install required modules.
-
+    `sudo apt-get install chromium-chromedriver`
     `pip install -r requirements.txt`
 
 6. Launch catbox :)
