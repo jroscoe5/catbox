@@ -1,5 +1,5 @@
 ## catbox
-Catbox is an entertainment system for cats (and other pets).
+Catbox is an (unfinished) entertainment system for cats (and other pets).
 
 Designed for Rapberry Pi 4 with some future modules integrating sensors, can be
 run on a pc as long as the relevant sensor modules are left out of the 
